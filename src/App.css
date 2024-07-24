@@ -19,8 +19,7 @@
 }
 
 .navbar-custom {
-  background-color: #030c20 !important;
-
+  background-color: #1d1c2a !important;
 }
 
 .navbar-custom .container {
@@ -55,28 +54,4 @@
 
 #menu {
   padding: 5px;
-}
-
-.header-title {
-  position: fixed;
-  z-index: 10;
-  top: 60px;
-  padding: 10px;
-  background-color: white;
-  text-align: center;
-  width: 100%;
-}
-
-.header-title p {
-  margin: 0;
-  font-weight: 600;
-}
-
-.bridge-button {
-  margin-left: 30px;
-  background-color: #111827;
-  border-radius: 20px;
-  border-width: 0;
-  padding: 5px 15px;
-  color: white;
 }

@@ -2,6 +2,7 @@
   "name": "staff-landing",
   "private": true,
   "dependencies": {
+    "@clerk/clerk-react": "^5.2.9",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -31,5 +32,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "vite": "^5.3.4"
   }
 }

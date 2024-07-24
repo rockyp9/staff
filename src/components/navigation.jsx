@@ -1,4 +1,5 @@
 import React from "react";
+import { SignedIn, SignedOut, SignInButton, UserButton, SignUpButton } from "@clerk/clerk-react";
 
 export const Navigation = (props) => {
   return (
@@ -18,7 +19,7 @@ export const Navigation = (props) => {
             <span className="icon-bar"></span>{" "}
           </button>
           <a className="navbar-brand page-scroll" href="#page-top">
-            Staff
+            PlusExchanges
           </a>{" "}
         </div>
 
@@ -27,46 +28,42 @@ export const Navigation = (props) => {
           id="bs-example-navbar-collapse-1"
         >
           <ul className="nav navbar-nav navbar-left">
+
+          </ul>
+          <ul className="nav navbar-nav navbar-right">
             <li>
               <a href="#about" className="page-scroll">
                 About
               </a>
             </li>
-            <li>
-              <a href="#platforms" className="page-scroll">
-                Platforms
-              </a>
-            </li>
-            <li>
-              <a href="#prcing" className="page-scroll">
-                Pricing
-              </a>
-            </li>
+
             <li>
               <a href="#contact" className="page-scroll">
                 Contact
               </a>
             </li>
             <li>
-              <a href="#connections" className="page-scroll">
-                Connections
+              <a href="#exchange" className="page-scroll">
+                Exchange
               </a>
             </li>
-            <li>
-              <a href="#bridge" className="page-scroll">
-                Bridge
-              </a>
-            </li>
-          </ul>
-          <ul className="nav navbar-nav navbar-right">
-            <li>
-              <a href="#about" className="page-scroll">
-                Sign In
-              </a>
-            </li>
+
             <li>
               <a href="#platforms" className="page-scroll">
-                Sign Up
+                <SignedOut>
+                  <SignInButton />
+                </SignedOut>
+              </a>
+            </li>
+
+            <li>
+              <a href="#platforms" className="page-scroll">
+                <SignedOut>
+                  <SignUpButton />
+                </SignedOut>
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
               </a>
             </li>
           </ul>

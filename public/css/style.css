@@ -164,6 +164,11 @@ hr {
   background-color: #608dfd;
 }
 
+.page-scroll button {
+  background-color: transparent;
+  border: 0;
+}
+
 .section-title {
   margin-bottom: 70px;
 }
@@ -193,14 +198,13 @@ hr {
 .btn-custom {
   font-family: "Raleway", sans-serif;
   color: #fff;
-  background-color: #5ca9fb;
-  background-image: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
+  background-color: rgb(54, 179, 54);
   padding: 14px 34px;
   letter-spacing: 1px;
   margin: 0;
   font-size: 15px;
   font-weight: 500;
-  border-radius: 25px;
+  border-radius: 10px;
   transition: all 0.5s linear;
   border: 0;
 }
@@ -239,17 +243,15 @@ a:focus,
   display: table;
   width: 100%;
   padding: 0;
-  background: url(../img/intro-bg.jpg) center center no-repeat;
-  background-color: #e5e5e5;
+  /* background: url(../img/intro-bg.jpg) center center no-repeat; */
+  /* background-color: #e5e5e5; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
 }
 
-.intro .overlay {
-  background: rgba(0, 0, 0, 0.2);
-}
+
 
 .intro h1 {
   font-family: "Raleway", sans-serif;
@@ -276,9 +278,20 @@ a:focus,
 }
 
 header .intro-text {
-  padding-top: 250px;
-  padding-bottom: 150px;
-  /* text-align: center; */
+  padding-top: 150px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.intro-text .currency-img img {
+  border-radius: 50%;
+  height: 180px;
+  margin: auto;
+}
+
+.intro-text .currency-img p {
+  margin-top: 15px;
+  font-weight: 600;
 }
 
 .intro-text h2 {
@@ -287,13 +300,14 @@ header .intro-text {
   text-transform: none
 }
 
+
 .intro-text p {
   font-size: medium;
 }
 
 /* Features Section */
 #features {
-  background: white;
+  /* background: white; */
 }
 
 #features .col-xs-6 {
@@ -386,7 +400,7 @@ header .intro-text {
 /* Services Section */
 #services {
   padding: 100px 0;
-  background: linear-gradient(to right, #101829 0%, #5ca9fb 100%);
+  /* background: linear-gradient(to right, #101829 0%, #5ca9fb 100%); */
   color: #fff;
   text-align: left;
 }
@@ -589,7 +603,7 @@ header .intro-text {
 /* Contact Section */
 #contact {
   padding: 100px 0 60px;
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
+  /* background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%); */
   color: rgba(255, 255, 255, 0.75);
 }
 

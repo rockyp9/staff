@@ -3,10 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { ClerkProvider } from '@clerk/clerk-react'
 
+
+// const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+// if (!PUBLISHABLE_KEY) {
+//   throw new Error("Missing Publishable Key")
+// }
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ClerkProvider publishableKey="pk_test_Zmx1ZW50LWd1cHB5LTkxLmNsZXJrLmFjY291bnRzLmRldiQ" afterSignOutUrl="/">
+      <App />
+    </ClerkProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
