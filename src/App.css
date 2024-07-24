@@ -1,0 +1,82 @@
+@media screen and (max-width: 400px) {
+  #features {
+    padding: 20px;
+    width: 111%;
+  }
+
+  #about,
+  #services,
+  #testimonials,
+  #team,
+  #contact,
+  #footer {
+    width: 111%;
+  }
+
+  #portfolio {
+    width: 110%;
+  }
+}
+
+.navbar-custom {
+  background-color: #030c20 !important;
+
+}
+
+.navbar-custom .container {
+  padding-right: 50px;
+  padding-left: 50px;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  width: 100%;
+}
+
+#menu.navbar-default .navbar-nav>li>a {
+  text-transform: none;
+  color: white;
+}
+
+#menu a.navbar-brand {
+  color: white;
+  text-transform: none;
+}
+
+#menu.navbar-default .navbar-nav>li>a:after {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #f6f7fa 0%, #5ca9fb 100%);
+  content: "";
+  transition: width 0.2s;
+}
+
+#menu {
+  padding: 5px;
+}
+
+.header-title {
+  position: fixed;
+  z-index: 10;
+  top: 60px;
+  padding: 10px;
+  background-color: white;
+  text-align: center;
+  width: 100%;
+}
+
+.header-title p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.bridge-button {
+  margin-left: 30px;
+  background-color: #111827;
+  border-radius: 20px;
+  border-width: 0;
+  padding: 5px 15px;
+  color: white;
+}
