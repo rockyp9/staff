@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Exchange from './Exchange';
 import * as serviceWorker from './serviceWorker';
 import { ClerkProvider } from '@clerk/clerk-react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 // const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -13,7 +15,23 @@ import { ClerkProvider } from '@clerk/clerk-react'
 ReactDOM.render(
   <React.StrictMode>
     <ClerkProvider publishableKey="pk_test_Zmx1ZW50LWd1cHB5LTkxLmNsZXJrLmFjY291bnRzLmRldiQ" afterSignOutUrl="/">
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <App />
+            }
+          />
+          <Route
+            path="/exchange"
+            element={
+              <Exchange />
+            }
+          />
+
+        </Routes>
+      </BrowserRouter>
     </ClerkProvider>
   </React.StrictMode>,
   document.getElementById('root')

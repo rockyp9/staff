@@ -305,10 +305,6 @@ header .intro-text {
   font-size: medium;
 }
 
-/* Features Section */
-#features {
-  /* background: white; */
-}
 
 #features .col-xs-6 {
   background: #101829;
@@ -340,6 +336,59 @@ header .intro-text {
   border-radius: 50%;
   background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+}
+
+#exchangeform {
+  padding: 200px 50px;
+  text-align: center;
+}
+
+#exchangeform button {
+  margin-top: 25px;
+}
+
+.send-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.send-label label {
+  padding-bottom: 8px;
+  color: white;
+}
+
+.input-group {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.input-group input {
+  border-radius: 5px !important;
+}
+
+.input-group .input-group-append {
+  position: absolute;
+  z-index: 10;
+  right: 0;
+
+}
+
+.input-group .input-group-append select {
+  border: 0;
+  border-radius: 5px;
+}
+
+#exchangeform h2 {
+  color: white;
+  text-transform: none;
+}
+
+#exchangeform .col-md-6 {
+  padding: 10px 30px;
+  display: grid;
+  margin-bottom: 20px;
 }
 
 /* About Section */
@@ -409,11 +458,6 @@ header .intro-text {
   margin: 10px 10px 20px;
 }
 
-#services .row {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
 
 #services h2 {
   color: #fff;

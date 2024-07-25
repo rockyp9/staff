@@ -46,7 +46,7 @@ export const Header = (props) => {
               </div>
               <br></br>
               <a
-                href="#"
+                href="/exchange"
                 className="btn btn-custom btn-lg page-scroll"
               >
                 Exchange Now!

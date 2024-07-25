@@ -100,12 +100,6 @@ export const Contact = (props) => {
           <div className="col-md-3 col-md-offset-1 contact-info">
             <div className="contact-item">
               <h3>Contact Info</h3>
-              <p>
-                <span>
-                  <i className="fa fa-map-marker"></i> Address
-                </span>
-                {props.data ? props.data.address : "loading"}
-              </p>
             </div>
             <div className="contact-item">
               <p>
@@ -152,7 +146,7 @@ export const Contact = (props) => {
       <div id="footer">
         <div className="container text-center">
           <p>
-            &copy; 2024 plus exchange all rights reserved copyright claim
+            © Copyright Plus Exchange. All Rights Reserved.
           </p>
         </div>
       </div>
