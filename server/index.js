@@ -23,6 +23,39 @@ const pool = mysql.createPool({
 });
 
 
+app.post('/add-user', (req, res) => {
+    const user = req.body.userDetails;
+    if (!user) {
+        return res.status(400).send('No user data provided');
+    }
+    console.log('Received user data:', user);
+    pool.getConnection((err, connection) => {
+
+        if (err) {
+            console.error('Error getting MySQL connection:', err);
+            return res.status(500).send('Database connection failed');
+        }
+        connection.query('SELECT * FROM users WHERE email = ?', [user.emailAddress], (error, results) => {
+            if (error) {
+
+                return callback(error, null);
+            }
+            if (results.length === 0) {
+                connection.query('INSERT INTO users ( user_id, email, fullName) VALUES(?,?,?)',
+                    [user.id, user.emailAddress, user.fullName], (error, results) => {
+                        connection.release(); // Release the connection back to the pool
+
+                        if (error) {
+                            console.error('Query error:', error);
+                            return res.status(500).send('Database query failed');
+                        }
+                        res.send(results);
+                    });
+            }
+        });
+
+    });
+});
 app.post('/create-transaction', (req, res) => {
     const transaction = req.body.newTransaction;
     if (!transaction) {
@@ -95,5 +128,5 @@ app.delete('/delete/:id', (req, res) => {
 });
 
 app.listen(3001, () => {
-    console.log('Corriendo en el puerto 3001')
+    console.log('Server is running on the port 3001!')
 })

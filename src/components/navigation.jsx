@@ -1,11 +1,35 @@
 import React, { useEffect } from "react";
 import { useUser, SignedIn, SignedOut, SignInButton, UserButton, SignUpButton } from "@clerk/clerk-react";
+import axios from 'axios';
 
 export const Navigation = (props) => {
-  const { isSignedIn, user } = useUser();
-  if (isSignedIn) {
-    console.log(user)
-  }
+  const { user, isSignedIn } = useUser();
+
+  useEffect(() => {
+    if (isSignedIn && user) {
+      console.log('User signed up:', user);
+      const userDetails = {
+        id: user.id,
+        fullName: user.fullName,
+        emailAddress: user.primaryEmailAddress.emailAddress
+      };
+
+      // Save user details to your database
+      try {
+        axios.post("http://localhost:3001/add-user", {
+          userDetails
+        }).then(() => {
+          console.log('success');
+
+        }).catch(function (error) {
+          console.log(error)
+        });
+        console.log('User saved to database');
+      } catch (error) {
+        console.error('Error saving user to database:', error);
+      }
+    }
+  }, [isSignedIn, user]);
 
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top navbar-custom">

@@ -74,7 +74,7 @@ export const ExchangeForm = (props) => {
     };
     setLoading(true);
 
-    axios.post("http:localhost:3001/create-transaction", {
+    axios.post("http://localhost:3001/create-transaction", {
       newTransaction
     }).then(() => {
       console.log('success');
