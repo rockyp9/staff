@@ -198,7 +198,7 @@ hr {
 .btn-custom {
   font-family: "Raleway", sans-serif;
   color: #fff;
-  background-color: rgb(54, 179, 54);
+  background-color: #5a7fd7;
   padding: 14px 34px;
   letter-spacing: 1px;
   margin: 0;
@@ -385,10 +385,120 @@ header .intro-text {
   text-transform: none;
 }
 
+#exchangeform .submit-button {
+  display: flex;
+  margin: auto;
+  background-color: #5a7fd7;
+}
+
+#exchangeform .submit-button div {
+  padding-left: 10px;
+}
+
 #exchangeform .col-md-6 {
   padding: 10px 30px;
   display: grid;
   margin-bottom: 20px;
+}
+
+.my-modal .modal-content {
+  background-color: #1d1c2a;
+  border-radius: 5px;
+  margin-top: 100px;
+  font-size: 15px;
+}
+
+.my-modal .modal-content .transaction-label {
+  margin-top: 30px;
+  color: white;
+  font-size: 12px;
+}
+
+.my-modal .modal-content .status-label {
+  color: white;
+  font-size: 25px;
+}
+
+.my-modal .modal-content .transaction-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #869caf;
+  width: 150px;
+  color: white;
+  margin: auto;
+}
+
+
+.modal-overlay {
+
+  justify-content: center;
+  align-items: center;
+}
+
+.my-modal .modal-content .transaction-status span {
+  padding: 0 5px;
+}
+
+.my-modal .modal-content .transaction-status svg {
+  color: rgb(235, 103, 103);
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+.my-modal .modal-content .next-steps,
+h4 {
+  color: #b9c8f3;
+  text-align: left;
+}
+
+.my-modal .modal-content .next-steps span {
+  color: white;
+}
+
+.my-modal .modal-content .transaction-id {
+  border: 1px solid;
+  border-radius: 10px;
+  margin: auto;
+  width: 400px;
+  background-color: #222037;
+  color: white;
+}
+
+.custom-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-dropdown {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.custom-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 120px;
+  border: 1px solid #ccc;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.custom-dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.custom-dropdown-item:hover {
+  background-color: #f0f0f0;
 }
 
 /* About Section */

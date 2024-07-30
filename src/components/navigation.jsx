@@ -1,7 +1,12 @@
-import React from "react";
-import { SignedIn, SignedOut, SignInButton, UserButton, SignUpButton } from "@clerk/clerk-react";
+import React, { useEffect } from "react";
+import { useUser, SignedIn, SignedOut, SignInButton, UserButton, SignUpButton } from "@clerk/clerk-react";
 
 export const Navigation = (props) => {
+  const { isSignedIn, user } = useUser();
+  if (isSignedIn) {
+    console.log(user)
+  }
+
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top navbar-custom">
       <div className="container">
