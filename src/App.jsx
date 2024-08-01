@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigation } from "./components/navigation";
 import { Header } from "./components/header";
-import { Features } from "./components/features";
 import { Services } from "./components/services";
 import { Contact } from "./components/contact";
 import JsonData from "./data/data.json";
@@ -24,8 +23,6 @@ const App = () => {
       <div className="white-section"></div>
       <Navigation />
       <Header data={landingPageData.Header} />
-      {/* <Features data={landingPageData.Features} /> */}
-      {/* <About data={landingPageData.About} /> */}
       <Services data={landingPageData.Services} />
       <Contact data={landingPageData.Contact} />
     </div>
