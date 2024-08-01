@@ -1,0 +1,33 @@
+name: Deploy to Bluehost
+
+on:
+  push:
+    branches:
+      - main  # Adjust this to your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '21'  # Adjust to your Node.js version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run build:dev
+
+    - name: Deploy to Bluehost
+      env:
+        FTP_SERVER: ${{ secrets.FTP_SERVER }}
+        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      run: |
+        curl -T ./build/* ftp://$FTP_SERVER/ --user $FTP_USERNAME:$FTP_PASSWORD

@@ -17,7 +17,7 @@ export const Services = (props) => {
               </h2>
               <FaArrowRightLong style={{ color: 'white', width: '80px', height: '60px', strokeWidth: '1px' }} />
             </div>
-            <h3>Choose curreny</h3>
+            <h3>Choose currency</h3>
             <p>Pick one of the supported currency pairs to send</p>
           </div>
           <div className="col-md-4 exchange-steps">
@@ -26,7 +26,7 @@ export const Services = (props) => {
               <FaArrowRightLong style={{ color: 'white', width: '80px', height: '60px', strokeWidth: '1px' }} />
             </div>
             <h3>Make deposit</h3>
-            <p>Pick one of the supported currency pairs to send</p>
+            <p>Confirm details and send your assets to the generated address or Fiat Account</p>
           </div>
           <div className="col-md-4 exchange-steps">
             <div className="exchange-step">
@@ -34,7 +34,7 @@ export const Services = (props) => {
               <RiCheckDoubleLine style={{ color: 'green', width: '80px', height: '60px', strokeWidth: '1px' }} />
             </div>
             <h3>Recieve Your Funds</h3>
-            <p>Pick one of the supported currency pairs to send</p>
+            <p>Recieve your desired Crypto/Fiat to your account with the best possible rate</p>
           </div>
         </div>
       </div>
