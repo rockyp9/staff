@@ -6,20 +6,12 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-// const pool = mysql.createPool({
-//     connectionLimit: 10,
-//     host: '162.241.24.101',
-//     user: 'trsooemy_joe',
-//     password: 'admin41@@',
-//     database: 'trsooemy_plusexchange'
-// });
-
 const pool = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'plusexchange'
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABSE
 });
 
 
