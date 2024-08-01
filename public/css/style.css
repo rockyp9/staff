@@ -330,6 +330,17 @@ a:focus,
   margin-bottom: 60px;
 }
 
+.terms-services {
+  color: white;
+  padding: 100px 200px;
+  position: relative;
+}
+
+.terms-services h2,
+h3 {
+  color: white;
+}
+
 #header .intro-text {
   padding-top: 150px;
   padding-bottom: 10px;

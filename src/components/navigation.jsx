@@ -69,8 +69,8 @@ export const Navigation = (props) => {
               </a>
             </li>
             <li>
-              <a href="#exchange" className="page-scroll">
-                Exchange
+              <a href="/terms" className="page-scroll">
+                Terms Of Services
               </a>
             </li>
 

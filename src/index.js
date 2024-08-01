@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Exchange from './Exchange';
+import Terms from './Terms';
 import * as serviceWorker from './serviceWorker';
 import { ClerkProvider } from '@clerk/clerk-react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -21,6 +22,12 @@ ReactDOM.render(
             path="/"
             element={
               <App />
+            }
+          />
+          <Route
+            path="/terms"
+            element={
+              <Terms />
             }
           />
           <Route
