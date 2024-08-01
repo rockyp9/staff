@@ -176,7 +176,7 @@ export const ExchangeForm = (props) => {
                     disabled
                     className="form-control"
                     aria-label="Text input"
-                    value={recieveAmount}
+                  // value={recieveAmount}
                   />
                   <div className="input-group-append" >
                     <div className="custom-dropdown-container">
