@@ -20,10 +20,11 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className="landing-page">
+      <div className="white-section"></div>
       <Navigation />
       <Header data={landingPageData.Header} />
-      <Features data={landingPageData.Features} />
+      {/* <Features data={landingPageData.Features} /> */}
       {/* <About data={landingPageData.About} /> */}
       <Services data={landingPageData.Services} />
       <Contact data={landingPageData.Contact} />

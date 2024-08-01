@@ -37,7 +37,7 @@ app.post('/add-user', (req, res) => {
         }
         connection.query('SELECT * FROM users WHERE email = ?', [user.emailAddress], (error, results) => {
             if (error) {
-
+                console.log(error);
                 return callback(error, null);
             }
             if (results.length === 0) {
@@ -53,6 +53,39 @@ app.post('/add-user', (req, res) => {
                     });
             }
         });
+
+    });
+});
+
+app.post('/create-txid', (req, res) => {
+    const txidData = req.body.txidData;
+    if (!txidData) {
+        return res.status(400).send('No txid data provided');
+    }
+    console.log('Received txid data:', txidData);
+    pool.getConnection((err, connection) => {
+
+        if (err) {
+            console.error('Error getting MySQL connection:', err);
+            return res.status(500).send('Database connection failed');
+        }
+
+        connection.query('INSERT INTO txids ( amount,recieveAmount,fullName,userName,email,number,txid) VALUES(?,?,?,?,?,?,?)',
+            [txidData.amount,
+            txidData.recieveAmount,
+            txidData.fullName,
+            txidData.userName,
+            txidData.email,
+            txidData.number,
+            txidData.txid], (error, results) => {
+                connection.release(); // Release the connection back to the pool
+
+                if (error) {
+                    console.error('Query error:', error);
+                    return res.status(500).send('Database query failed');
+                }
+                res.send(results);
+            });
 
     });
 });
@@ -79,52 +112,6 @@ app.post('/create-transaction', (req, res) => {
                 res.send(results);
             });
     });
-});
-
-app.get('/empleados', (req, res) => {
-
-    db.query('SELECT * FROM empleados',
-        (err, result) => {
-            if (err) {
-                console.log(err)
-            } else {
-                res.send(result)
-            }
-        }
-    );
-});
-
-app.put('/update', (req, res) => {
-    const id = req.body.id;
-    const nombre = req.body.nombre;
-    const edad = req.body.edad;
-    const pais = req.body.pais;
-    const cargo = req.body.cargo;
-    const anios = req.body.anios;
-
-    db.query('UPDATE empleados SET nombre=?, edad=?, pais=?, cargo=?, anios=? WHERE id=?', [nombre, edad, pais, cargo, anios, id],
-        (err, result) => {
-            if (err) {
-                console.log(err)
-            } else {
-                res.send(result)
-            }
-        }
-    );
-});
-
-app.delete('/delete/:id', (req, res) => {
-    const id = req.params.id;
-
-    db.query('DELETE FROM empleados WHERE id=?', [id],
-        (err, result) => {
-            if (err) {
-                console.log(err)
-            } else {
-                res.send(result)
-            }
-        }
-    );
 });
 
 app.listen(3001, () => {

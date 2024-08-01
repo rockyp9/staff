@@ -4,7 +4,6 @@ import axios from 'axios';
 
 export const Navigation = (props) => {
   const { user, isSignedIn } = useUser();
-
   useEffect(() => {
     if (isSignedIn && user) {
       console.log('User signed up:', user);
@@ -14,9 +13,9 @@ export const Navigation = (props) => {
         emailAddress: user.primaryEmailAddress.emailAddress
       };
 
-      // Save user details to your database
       try {
-        axios.post("http://localhost:3001/add-user", {
+
+        axios.post(`${process.env.REACT_APP_API_URL}/add-user`, {
           userDetails
         }).then(() => {
           console.log('success');
@@ -47,8 +46,9 @@ export const Navigation = (props) => {
             <span className="icon-bar"></span>{" "}
             <span className="icon-bar"></span>{" "}
           </button>
-          <a className="navbar-brand page-scroll" href="/">
+          <a className="navbar-brand page-scroll site-logo" href="/">
             PlusExchanges
+            <img src="img/logo.png" className="img-responsive" alt="" />
           </a>{" "}
         </div>
 
@@ -56,9 +56,6 @@ export const Navigation = (props) => {
           className="collapse navbar-collapse"
           id="bs-example-navbar-collapse-1"
         >
-          <ul className="nav navbar-nav navbar-left">
-
-          </ul>
           <ul className="nav navbar-nav navbar-right">
             <li>
               <a href="#about" className="page-scroll">

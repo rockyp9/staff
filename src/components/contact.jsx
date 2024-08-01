@@ -122,19 +122,10 @@ export const Contact = (props) => {
             <div className="row">
               <div className="social">
                 <ul>
+
                   <li>
-                    <a href={props.data ? props.data.facebook : "/"}>
-                      <i className="fa fa-facebook"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href={props.data ? props.data.twitter : "/"}>
-                      <i className="fa fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href={props.data ? props.data.youtube : "/"}>
-                      <i className="fa fa-youtube"></i>
+                    <a href="https://www.instagram.com/plusexchanges">
+                      <i className="fa fa-instagram"></i>
                     </a>
                   </li>
                 </ul>
@@ -146,7 +137,7 @@ export const Contact = (props) => {
       <div id="footer">
         <div className="container text-center">
           <p>
-            © Copyright Plus Exchange. All Rights Reserved.
+            © Copyright Plus Exchanges. All Rights Reserved.
           </p>
         </div>
       </div>

@@ -5,10 +5,11 @@ import { SlRefresh } from "react-icons/sl";
 import { BiLogoVenmo } from "react-icons/bi";
 import { Oval } from 'react-loader-spinner';
 import axios from 'axios';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const ExchangeForm = (props) => {
-
+  const notify = () => toast("Please wait for your exchange to be automated");
   const options = [
     { value: 'btc', label: 'Bitcoin', icon: <FaBitcoin color='orange' /> },
     { value: 'eth', label: 'Ethereum', icon: <FaEthereum color='blue' /> },
@@ -28,6 +29,7 @@ export const ExchangeForm = (props) => {
   const [email, setEmail] = useState('');
   const [number, setNumber] = useState('');
   const [loading, setLoading] = useState(false);
+  const [txidSubmitted, setTxidSubmitted] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -42,12 +44,11 @@ export const ExchangeForm = (props) => {
     setRecieveValue(value);
     setIsRecieveOpen(false);
   };
-  const [recipientAddress, setRecipientAddress] = useState('');
   const [amount, setAmount] = useState('');
   const [recieveAmount, setRecieveAmount] = useState('');
   const [transactionMessage, setTransactionMessage] = useState('');
   const [transactions, setTransactions] = useState([]);
-
+  const [txid, setTXID] = useState('')
   const handleSend = (e) => {
     e.preventDefault();
 
@@ -56,13 +57,8 @@ export const ExchangeForm = (props) => {
       return;
     }
 
-    // setRecieveAmount(amount * 4)
-
-
-    // Simulate sending a transaction
     const newTransaction = {
       id: transactions.length + 1,
-      recipientAddress,
       amount,
       recieveAmount,
       fullName,
@@ -74,35 +70,59 @@ export const ExchangeForm = (props) => {
     };
     setLoading(true);
 
-    axios.post("http://localhost:3001/create-transaction", {
+    axios.post(`${process.env.REACT_APP_API_URL}/create-transaction`, {
       newTransaction
     }).then(() => {
       console.log('success');
       setLoading(false)
       setShowModal(true)
     }).catch(function (error) {
+      setLoading(false)
       console.log(error)
     });
   };
-  //   axios.post("https://plusexchanges.com/api/create-transaction", {
-  //     newTransaction
-  //   }).then(() => {
-  //     console.log('success');
-  //     setLoading(false)
-  //     setShowModal(true)
-  //   }).catch(function (error) {
-  //     console.log(error)
-  //   });
-  // };
+
+  const handleSubmitTXID = () => {
+    const txidData = {
+      amount,
+      recieveAmount,
+      fullName,
+      userName,
+      email,
+      number,
+      txid,
+      timestamp: new Date().toLocaleString(),
+    };
+    axios.post(`${process.env.REACT_APP_API_URL}/create-txid`, {
+      txidData
+    }).then(() => {
+      console.log('success');
+      setAmount('');
+      setEmail('');
+      setFullName('');
+      setUserName('');
+      setNumber('');
+      setRecieveAmount('');
+      setTXID('');
+      // setShowModal(false);
+      setTransactionMessage('');
+      notify();
+    }).catch(function (error) {
+      console.log(error)
+    });
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
 
   return (
     <div id="exchangeform">
       <div className="container">
         <div className="row">
           <div >
-
+            <ToastContainer />
             <h2>Exchange Today</h2>
-
             <form onSubmit={handleSend} >
               <div className='col-md-6'>
                 <div className='send-label'>
@@ -116,6 +136,7 @@ export const ExchangeForm = (props) => {
                     className="form-control"
                     placeholder="Enter Amount"
                     aria-label="Text input"
+                    value={amount}
                     onChange={(e) => { setAmount(e.target.value); setRecieveAmount(e.target.value * 4) }}
                   />
                   <div className="input-group-append" >
@@ -156,7 +177,6 @@ export const ExchangeForm = (props) => {
                     className="form-control"
                     aria-label="Text input"
                     value={recieveAmount}
-
                   />
                   <div className="input-group-append" >
                     <div className="custom-dropdown-container">
@@ -171,8 +191,7 @@ export const ExchangeForm = (props) => {
                             <div
                               key={option.value}
                               className="custom-dropdown-item"
-                              onClick={() => handleRecieveOptionClick(option.value)}
-                            >
+                              onClick={() => handleRecieveOptionClick(option.value)}>
                               {option.icon}<span>&nbsp;</span>
                               {option.label}
                             </div>
@@ -183,7 +202,6 @@ export const ExchangeForm = (props) => {
                   </div>
                 </div>
               </div>
-
               <div className='col-md-6'>
                 <div className='send-label'>
                   <label htmlFor="recipientAddress">Full Name</label>
@@ -196,6 +214,7 @@ export const ExchangeForm = (props) => {
                     aria-label="Text input"
                     placeholder='Enter your full name'
                     onChange={(e) => { setFullName(e.target.value) }}
+                    value={fullName}
                   />
                 </div>
               </div>
@@ -211,7 +230,7 @@ export const ExchangeForm = (props) => {
                     aria-label="Text input"
                     placeholder='Enter your username'
                     onChange={(e) => { setUserName(e.target.value) }}
-
+                    value={userName}
                   />
                 </div>
               </div>
@@ -227,7 +246,7 @@ export const ExchangeForm = (props) => {
                     aria-label="Text input"
                     placeholder='Enter your email'
                     onChange={(e) => { setEmail(e.target.value) }}
-
+                    value={email}
                   />
                 </div>
               </div>
@@ -243,28 +262,30 @@ export const ExchangeForm = (props) => {
                     aria-label="Text input"
                     placeholder='Enter your Number'
                     onChange={(e) => { setNumber(e.target.value) }}
-
+                    value={number}
                   />
                 </div>
               </div>
 
-              <button className='btn btn-primary submit-button' type="submit" >Exchange Now
-                {loading ? <Oval
-                  height={20}
-                  width={20}
-                  color="white"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                  visible={true}
-                  ariaLabel="oval-loading"
-                  secondaryColor="#f3f3f3"
-                  strokeWidth={2}
-                  strokeWidthSecondary={2}
-                /> : ''}
-              </button>
+              <div className="col-md-12 form-submit-button">
+                <button className='btn btn-primary submit-button' type="submit" >Exchange Now
+                  {loading ? <Oval
+                    height={20}
+                    width={20}
+                    color="white"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="oval-loading"
+                    secondaryColor="#f3f3f3"
+                    strokeWidth={2}
+                    strokeWidthSecondary={2}
+                  /> : ''}
+                </button>
+              </div>
             </form>
             {transactionMessage && <p >{transactionMessage}</p>}
-            <div className="modal-overlay" onClick={handleOverlayClick}>
+            <div className="modal-overlay">
               <div className={`modal my-modal ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1">
                 <div className="modal-dialog">
                   <div className="modal-content">
@@ -311,6 +332,21 @@ export const ExchangeForm = (props) => {
                           <br />
                           Email - sbqzyt@gmail.com
                         </span>
+                        <div className="txid-input">
+                          <label htmlFor="TXID">Please enter the Web Recipt/TXID/Number</label>
+                          <input
+                            required
+                            type="text"
+                            className="form-control"
+                            aria-label="Text input"
+                            placeholder='Enter the Web Recipt/TXID/Number'
+                            onChange={(e) => { setTXID(e.target.value) }}
+                            value={txid}
+                          />
+                          <button className='btn btn-primary ' onClick={handleSubmitTXID} >Send</button>
+                          <button className='btn btn-default close-button' onClick={handleCloseModal} >Close</button>
+                          {txidSubmitted && <p>Please wait for your exchange to be automated</p>}
+                        </div>
                       </div>
                     </div>
 
