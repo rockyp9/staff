@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const cors = require('cors');
 
 app.use(cors());
@@ -13,7 +13,6 @@ const pool = mysql.createPool({
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABSE
 });
-
 
 app.post('/add-user', (req, res) => {
     const user = req.body.userDetails;
