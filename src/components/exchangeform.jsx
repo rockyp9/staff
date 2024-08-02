@@ -55,7 +55,8 @@ export const ExchangeForm = (props) => {
     e.preventDefault();
 
     if (!isTermsChecked) {
-      toast.error('You must agree to the terms of service before exchanging.')
+      toast.error('You must agree to the terms of service before exchanging.');
+      return;
     }
     if (!amount) {
       setTransactionMessage('Please enter a valid address and amount.');
@@ -229,7 +230,7 @@ export const ExchangeForm = (props) => {
               </div>
               <div className='col-md-6'>
                 <div className='send-label'>
-                  <label htmlFor="recipientAddress">UserName</label>
+                  <label htmlFor="recipientAddress">Desired Platform Username</label>
                 </div>
                 <div className="input-group mb-3" >
                   <input
