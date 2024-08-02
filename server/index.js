@@ -8,8 +8,8 @@ const mailgun = require('mailgun-js');
 app.use(bodyParser.json());
 
 const mg = mailgun({
-    apiKey: '144401032cd96f0c24732c35765d76db-afce6020-9fa8c9f4',
-    domain: 'sandboxd90b7352e55947ac88820b145e63b9c6.mailgun.org'
+    apiKey: process.env.MAILGUN_API_KEY,
+    domain: process.env.MAILGUN_DOMAIN
 });
 
 
