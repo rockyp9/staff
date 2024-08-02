@@ -48,10 +48,15 @@ export const ExchangeForm = (props) => {
   const [recieveAmount, setRecieveAmount] = useState('');
   const [transactionMessage, setTransactionMessage] = useState('');
   const [transactions, setTransactions] = useState([]);
-  const [txid, setTXID] = useState('')
+  const [txid, setTXID] = useState('');
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
+
   const handleSend = (e) => {
     e.preventDefault();
 
+    if (!isTermsChecked) {
+      toast.error('You must agree to the terms of service before exchanging.')
+    }
     if (!amount) {
       setTransactionMessage('Please enter a valid address and amount.');
       return;
@@ -114,6 +119,10 @@ export const ExchangeForm = (props) => {
 
   const handleCloseModal = () => {
     setShowModal(false)
+  }
+
+  const handleCheckboxChange = () => {
+    setIsTermsChecked(!isTermsChecked);
   }
 
   return (
@@ -266,7 +275,17 @@ export const ExchangeForm = (props) => {
                   />
                 </div>
               </div>
-
+              <div className="col-md-12 terms-agree">
+                <input
+                  type="checkbox"
+                  id="terms"
+                  checked={isTermsChecked}
+                  onChange={handleCheckboxChange}
+                />
+                <label htmlFor="terms">
+                  I agree to the <a href="/terms" target="_blank">Terms of service</a>.
+                </label>
+              </div>
               <div className="col-md-12 form-submit-button">
                 <button className='btn btn-primary submit-button' type="submit" >Exchange Now
                   {loading ? <Oval

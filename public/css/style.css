@@ -330,6 +330,20 @@ a:focus,
   margin-bottom: 60px;
 }
 
+.terms-agree {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.terms-agree label {
+  margin: 0 10px;
+}
+
+.terms-agree input {
+  margin: 0;
+}
+
 .terms-services {
   color: white;
   padding: 100px 200px;
