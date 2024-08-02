@@ -121,7 +121,7 @@ app.post('/send-email', (req, res) => {
     console.log(recipient, text);
     const msg = {
         to: recipient, // Recipient's email
-        from: 'Zhongwei <Joe@exchange.com>', // Verified sender
+        from: 'PlusExchange <joe@exchange.com>', // Verified sender
         subject: subject,
         text: text,
     };

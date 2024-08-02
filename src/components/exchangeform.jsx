@@ -117,7 +117,6 @@ export const ExchangeForm = (props) => {
           subject: subject,
           text: text
         });
-        alert('Email sent successfully');
       } catch (error) {
         console.error('Error sending email:', error);
         alert('Failed to send email');
