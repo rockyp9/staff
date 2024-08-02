@@ -1,6 +1,7 @@
 Cryptocurrenty Exchange Platform
 
 Overview
+
 This project is a web application that allows users to exchange various supported currencies into desired cryptocurrencies. 
 Built using the MERN stack (React, Node.js, Express, MySQL), the platform provides a seamless and secure user experience.
 User authentication and management are handled by Clerk, ensuring secure access to the platform's features.
