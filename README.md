@@ -27,7 +27,7 @@ Installation
 
 3. Install frontend and backend dependencies:
     - npm install
-    - cd /server $$ npm install
+    - cd /server && npm install
 
 4. Run the development servers:
     - npm start && cd /server && npm start
