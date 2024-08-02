@@ -32,7 +32,7 @@ export const Header = (props) => {
             <div className="col-md-6"> */}
             <div className="intro-text">
               <h2>
-                Supported Currencies
+                Exchanging, Made Safer and Quicker.
               </h2>
               <br></br>
               <br></br>
