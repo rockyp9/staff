@@ -196,6 +196,7 @@ hr {
 
 .section-title a {
   color: white;
+  position: relative;
 }
 
 .section-title h2 {
