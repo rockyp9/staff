@@ -2,9 +2,9 @@ import React from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { RiCheckDoubleLine } from "react-icons/ri";
 
-export const Services = (props) => {
+export const About = (props) => {
   return (
-    <div id="services" className="text-center">
+    <div id="about" className="text-center">
       <div className="container">
         <div className="section-title">
           <h2>Your Best Crypto to Fiat Exchange</h2>

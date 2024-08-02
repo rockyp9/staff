@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigation } from "./components/navigation";
 import { Header } from "./components/header";
-import { Services } from "./components/services";
+import { About } from "./components/about";
 import { Contact } from "./components/contact";
 import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
@@ -23,7 +23,7 @@ const App = () => {
       <div className="white-section"></div>
       <Navigation />
       <Header data={landingPageData.Header} />
-      <Services data={landingPageData.Services} />
+      <About />
       <Contact data={landingPageData.Contact} />
     </div>
   );
