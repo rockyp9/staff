@@ -1,7 +1,18 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 const mysql = require('mysql2');
 const cors = require('cors');
+
+const mailgun = require('mailgun-js');
+app.use(bodyParser.json());
+
+const mg = mailgun({
+    apiKey: '144401032cd96f0c24732c35765d76db-afce6020-9fa8c9f4',
+    domain: 'sandboxd90b7352e55947ac88820b145e63b9c6.mailgun.org'
+});
+
+
 
 app.use(cors());
 app.use(express.json());
@@ -103,6 +114,25 @@ app.post('/create-transaction', (req, res) => {
                 res.send(results);
             });
     });
+});
+
+app.post('/send-email', (req, res) => {
+    const { recipient, subject, text } = req.body;
+    console.log(recipient, text);
+    const msg = {
+        to: recipient, // Recipient's email
+        from: 'Zhongwei <Joe@exchange.com>', // Verified sender
+        subject: subject,
+        text: text,
+    };
+
+    mg.messages().send(msg, (error, body) => {
+        if (error) {
+            console.log(error)
+        }
+        console.log('sent')
+    });
+
 });
 
 app.listen(3001, () => {

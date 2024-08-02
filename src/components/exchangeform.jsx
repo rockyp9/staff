@@ -9,7 +9,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const ExchangeForm = (props) => {
-  const notify = () => toast("Please wait for your exchange to be automated");
   const options = [
     { value: 'btc', label: 'Bitcoin', icon: <FaBitcoin color='orange' /> },
     { value: 'eth', label: 'Ethereum', icon: <FaEthereum color='blue' /> },
@@ -102,6 +101,27 @@ export const ExchangeForm = (props) => {
     axios.post(`${process.env.REACT_APP_API_URL}/create-txid`, {
       txidData
     }).then(() => {
+
+      try {
+        const subject = 'New Transaction Requested';
+        const text = `${fullName} requested ${amount} ${sendValue}  exchanging into ${recieveValue}.
+        Here is TXID - ${txid} 
+        Here is the user's contact info.
+        Fullname: ${fullName}
+        Desired platform Username/Address: ${userName}
+        Email Address: ${email}
+        Phone Number: ${number}
+        `;
+        axios.post(`${process.env.REACT_APP_API_URL}/send-email`, {
+          recipient: 'aaditakula2@gmail.com',
+          subject: subject,
+          text: text
+        });
+        alert('Email sent successfully');
+      } catch (error) {
+        console.error('Error sending email:', error);
+        alert('Failed to send email');
+      }
       console.log('success');
       setAmount('');
       setEmail('');
@@ -112,7 +132,8 @@ export const ExchangeForm = (props) => {
       setTXID('');
       // setShowModal(false);
       setTransactionMessage('');
-      notify();
+      toast("Please wait for your exchange to be automated");
+
     }).catch(function (error) {
       console.log(error)
     });
@@ -230,7 +251,7 @@ export const ExchangeForm = (props) => {
               </div>
               <div className='col-md-6'>
                 <div className='send-label'>
-                  <label htmlFor="recipientAddress">Desired Platform Username</label>
+                  <label htmlFor="recipientAddress">Desired Platform Username/Address</label>
                 </div>
                 <div className="input-group mb-3" >
                   <input
