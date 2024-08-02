@@ -40,10 +40,13 @@ Usage
 5. The exchange will be processed, and your account balance will be updated accordingly.
 
 Contributing
+
 Contributions are welcome! Please open an issue or submit a pull request for any bugs or feature requests.
 
 License
+
 This project is licensed under the MIT License.
 
 Contact
+
 For any inquiries, please contact aaditakula@plusexchanges.com.
