@@ -3,7 +3,6 @@ import { Navigation } from "./components/navigation";
 import { Header } from "./components/header";
 import { About } from "./components/about";
 import { Contact } from "./components/contact";
-import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
 import "./App.css";
 
@@ -13,18 +12,14 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 });
 
 const App = () => {
-  const [landingPageData, setLandingPageData] = useState({});
-  useEffect(() => {
-    setLandingPageData(JsonData);
-  }, []);
 
   return (
     <div className="landing-page">
       <div className="white-section"></div>
       <Navigation />
-      <Header data={landingPageData.Header} />
+      <Header />
       <About />
-      <Contact data={landingPageData.Contact} />
+      <Contact />
     </div>
   );
 };

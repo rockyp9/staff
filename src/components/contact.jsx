@@ -7,7 +7,7 @@ const initialState = {
   email: "",
   message: "",
 };
-export const Contact = (props) => {
+export const Contact = () => {
   const [{ name, email, message }, setState] = useState(initialState);
 
   const handleChange = (e) => {
@@ -106,7 +106,7 @@ export const Contact = (props) => {
                 <span>
                   <i className="fa fa-phone"></i> Phone
                 </span>{" "}
-                {props.data ? props.data.phone : "loading"}
+                +1 (518) - 805-8067
               </p>
             </div>
             <div className="contact-item">
@@ -114,7 +114,7 @@ export const Contact = (props) => {
                 <span>
                   <i className="fa fa-envelope-o"></i> Email
                 </span>{" "}
-                {props.data ? props.data.email : "loading"}
+                aaditakula@plusexchanges.com
               </p>
             </div>
           </div>
