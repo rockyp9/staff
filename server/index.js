@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const mailgun = require('mailgun-js');
 app.use(bodyParser.json());
-
+console.log(process.env.MAILGUN_API_KEY)
 const mg = mailgun({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN
@@ -117,19 +117,21 @@ app.post('/create-transaction', (req, res) => {
 });
 
 app.post('/send-email', (req, res) => {
-    const { recipient, subject, text } = req.body;
+    const { recipient, subject, text, email } = req.body;
     const msg = {
         to: [recipient, 'newcentury720@gmail.com'], // Recipient's email
-        from: 'PlusExchange <joe@exchange.com>', // Verified sender
+        from: !email ? 'PlusExchange <joe@exchange.com>' : `Customer ${email}`, // Verified sender
         subject: subject,
         text: text,
     };
 
     mg.messages().send(msg, (error, body) => {
         if (error) {
-            console.log(error)
+            console.log(error);
+            return res.status(500).send('Sending email failed');
         }
-        console.log('sent')
+        console.log('sent', body);
+        return res.status(200).send('Email sent successfully.')
     });
 
 });

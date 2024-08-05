@@ -8,14 +8,13 @@ import * as serviceWorker from './serviceWorker';
 import { ClerkProvider } from '@clerk/clerk-react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-
-// const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-// if (!PUBLISHABLE_KEY) {
-//   throw new Error("Missing Publishable Key")
-// }
+const PUBLISHABLE_KEY = process.env.REACT_APP_VITE_AUTH_KEY
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key")
+}
 ReactDOM.render(
   <React.StrictMode>
-    <ClerkProvider publishableKey="pk_test_Zmx1ZW50LWd1cHB5LTkxLmNsZXJrLmFjY291bnRzLmRldiQ" afterSignOutUrl="/">
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
       <BrowserRouter>
         <Routes>
           <Route

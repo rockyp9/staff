@@ -1,6 +1,6 @@
 import { useState } from "react";
-import emailjs from "emailjs-com";
 import React from "react";
+import axios from 'axios';
 
 const initialState = {
   name: "",
@@ -20,19 +20,20 @@ export const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(name, email, message);
+    try {
+      const subject = 'New Contact';
 
+      axios.post(`${process.env.REACT_APP_API_URL}/send-email`, {
+        recipient: 'aaditakula2@gmail.com',
+        subject: subject,
+        text: message,
+        email
+      });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('Failed to send email');
+    }
 
-    emailjs
-      .sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", e.target, "YOUR_PUBLIC_KEY")
-      .then(
-        (result) => {
-          console.log(result.text);
-          clearState();
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
   };
   return (
     <div>

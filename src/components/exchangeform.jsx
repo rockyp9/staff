@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const ExchangeForm = (props) => {
+
   const options = [
     { value: 'btc', label: 'Bitcoin', icon: <FaBitcoin color='orange' /> },
     { value: 'eth', label: 'Ethereum', icon: <FaEthereum color='blue' /> },
@@ -88,6 +89,10 @@ export const ExchangeForm = (props) => {
   };
 
   const handleSubmitTXID = () => {
+    if (!amount) {
+      toast('You must fill the required fields before sending TXID ');
+      return;
+    }
     const txidData = {
       amount,
       recieveAmount,
