@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useUser, SignedIn, SignedOut, SignInButton, UserButton, SignUpButton } from "@clerk/clerk-react";
 import axios from 'axios';
+import { FaDiscord } from "react-icons/fa6";
 
 export const Navigation = (props) => {
   const { user, isSignedIn } = useUser();
@@ -58,6 +59,11 @@ export const Navigation = (props) => {
         >
           <ul className="nav navbar-nav navbar-right">
             <li>
+              <a href="https://discord.gg/FUdHngcGwS" className="page-scroll" target="_blank">
+                <FaDiscord />
+              </a>
+            </li>
+            <li>
               <a href="#about" className="page-scroll">
                 About
               </a>
@@ -73,15 +79,14 @@ export const Navigation = (props) => {
                 Terms Of Services
               </a>
             </li>
-
             <li>
-              <a href="#platforms" className="page-scroll">
-                <SignedOut>
-                  <SignInButton />
-                </SignedOut>
-              </a>
-            </li>
 
+              <SignedOut>
+                <a className="page-scroll">
+                  <SignInButton />
+                </a>
+              </SignedOut>
+            </li>
             <li>
               <a href="#platforms" className="page-scroll">
                 <SignedOut>
