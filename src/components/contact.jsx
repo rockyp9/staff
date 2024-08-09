@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import axios from 'axios';
+import { FaDiscord, FaInstagram } from "react-icons/fa6";
 
 const initialState = {
   name: "",
@@ -123,10 +124,14 @@ export const Contact = () => {
             <div className="row">
               <div className="social">
                 <ul>
-
                   <li>
-                    <a href="https://www.instagram.com/plusexchanges">
-                      <i className="fa fa-instagram"></i>
+                    <a href="https://www.instagram.com/plusexchanges?igsh=dHBhZWtpM3NzenNp&utm_source=qr">
+                      <FaInstagram size={25} />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://discord.gg/FUdHngcGwS">
+                      <FaDiscord size={25} />
                     </a>
                   </li>
                 </ul>
