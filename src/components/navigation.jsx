@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FaDiscord } from "react-icons/fa6";
 
 export const Navigation = (props) => {
+
   const { user, isSignedIn } = useUser();
   useEffect(() => {
     if (isSignedIn && user) {

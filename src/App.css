@@ -19,7 +19,9 @@
 }
 
 .navbar-custom {
-  background-color: #230f34 !important
+  /* background: transparent !important; */
+  /* background-color: #230f34 !important */
+  background-color: transparent !important;
 }
 
 .navbar-custom .container {

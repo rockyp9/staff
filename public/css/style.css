@@ -443,7 +443,9 @@ h3 {
   padding: 200px 50px 100px 50px;
   text-align: center;
   height: 100%;
-  margin-top: 50px;
+  background: url('../img/14.png');
+  background-size: cover;
+
 }
 
 #exchangeform button {
@@ -481,13 +483,13 @@ h3 {
 .input-group .input-group-append {
   position: absolute;
   z-index: 10;
-  right: 10px;
-
+  width: 100%;
 }
 
 .input-group .input-group-append select {
   border: 0;
   border-radius: 5px;
+  width: 100%;
 }
 
 #exchangeform h2 {
@@ -583,6 +585,7 @@ h4 {
 .custom-dropdown-container {
   position: relative;
   display: inline-block;
+  width: 100%;
 }
 
 .custom-dropdown {
@@ -591,6 +594,7 @@ h4 {
   padding: 10px;
   border-radius: 4px;
   cursor: pointer;
+  float: right;
 }
 
 .custom-modal-content {
@@ -602,8 +606,7 @@ h4 {
 .custom-dropdown-menu {
   position: absolute;
   top: 100%;
-  left: -105px;
-  width: 200px;
+  width: 100%;
   border: 1px solid #ccc;
   background-color: white;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);

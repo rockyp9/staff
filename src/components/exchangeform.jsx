@@ -16,9 +16,9 @@ export const ExchangeForm = (props) => {
     { value: 'ltc', label: 'LTC', icon: <SiLitecoin size={20} color='blue' /> },
     { value: 'cashapp', label: 'Cashapp', icon: <SiCashapp size={20} color='green' /> },
     { value: 'paypal', label: 'Paypal', icon: <FaPaypal size={20} color='blue' /> },
-    { value: 'zelle', label: 'zelle', icon: <SiZelle size={20} color='duck' /> },
-    { value: 'apple', label: 'Apple Pay', icon: <FaApplePay size={20} color='black' /> },
-    { value: 'venmo', label: 'Venmo', icon: <BiLogoVenmo size={20} color='black' /> },
+    { value: 'zelle', label: 'zelle', icon: <SiZelle size={20} color='purple' /> },
+    { value: 'apple cash', label: 'Apple Pay', icon: <FaApplePay size={20} color='black' /> },
+    { value: 'venmo', label: 'Venmo', icon: <BiLogoVenmo size={20} color='blue' /> },
   ];
   const [sendValue, setSendValue] = useState(options[0].value);
   const [recieveValue, setRecieveValue] = useState(options[0].value);
@@ -161,7 +161,7 @@ export const ExchangeForm = (props) => {
             <form onSubmit={handleSend} >
               <div className='col-md-6'>
                 <div className='send-label'>
-                  <label htmlFor="recipientAddress">Send</label>
+                  <label htmlFor="recipientAddress">You Send</label>
                   <label htmlFor="recipientAddress">{sendValue}</label>
                 </div>
                 <div className="input-group mb-3" >
@@ -193,7 +193,7 @@ export const ExchangeForm = (props) => {
                                 {option.icon}<span>&nbsp;</span>
                                 {option.label}
                               </div>
-                              <span>{option.value}</span>
+                              <span style={{ textTransform: 'uppercase' }}>{option.value}</span>
                             </div>
                           ))}
                         </div>
@@ -204,7 +204,7 @@ export const ExchangeForm = (props) => {
               </div>
               <div className='col-md-6'>
                 <div className='send-label'>
-                  <label htmlFor="recipientAddress">Recieve</label>
+                  <label htmlFor="recipientAddress">You Recieve</label>
                   <label htmlFor="recipientAddress">{recieveValue}</label>
                 </div>
                 <div className="input-group mb-3" >
@@ -235,7 +235,7 @@ export const ExchangeForm = (props) => {
                                 {option.icon}<span>&nbsp;</span>
                                 {option.label}
                               </div>
-                              <span>{option.value}</span>
+                              <span style={{ textTransform: 'uppercase' }}>{option.value}</span>
                             </div>
                           ))}
                         </div>
@@ -270,7 +270,7 @@ export const ExchangeForm = (props) => {
                     type="text"
                     className="form-control"
                     aria-label="Text input"
-                    placeholder='joeexchange0401'
+                    placeholder='$cashtag/Crypto Address'
                     onChange={(e) => { setUserName(e.target.value) }}
                     value={userName}
                   />

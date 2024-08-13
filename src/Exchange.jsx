@@ -5,7 +5,7 @@ import { ExchangeForm } from "./components/exchangeform";
 import { useUser, RedirectToSignIn } from '@clerk/clerk-react';
 
 
-const Exchange = () => {
+const Exchange = (props) => {
     const { isSignedIn, user } = useUser();
 
     if (!isSignedIn) {
