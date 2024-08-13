@@ -11,14 +11,14 @@ import 'react-toastify/dist/ReactToastify.css';
 export const ExchangeForm = (props) => {
 
   const options = [
-    { value: 'btc', label: 'Bitcoin', icon: <FaBitcoin color='orange' /> },
-    { value: 'eth', label: 'Ethereum', icon: <FaEthereum color='blue' /> },
-    { value: 'ltc', label: 'LTC', icon: <SiLitecoin color='blue' /> },
-    { value: 'cashapp', label: 'Cashapp', icon: <SiCashapp color='green' /> },
-    { value: 'paypal', label: 'Paypal', icon: <FaPaypal color='blue' /> },
-    { value: 'zelle', label: 'zelle', icon: <SiZelle color='duck' /> },
-    { value: 'apple', label: 'Apple Pay', icon: <FaApplePay color='black' /> },
-    { value: 'venmo', label: 'Venmo', icon: <BiLogoVenmo color='black' /> },
+    { value: 'btc', label: 'Bitcoin', icon: <FaBitcoin size={20} color='orange' /> },
+    { value: 'eth', label: 'Ethereum', icon: <FaEthereum size={20} color='blue' /> },
+    { value: 'ltc', label: 'LTC', icon: <SiLitecoin size={20} color='blue' /> },
+    { value: 'cashapp', label: 'Cashapp', icon: <SiCashapp size={20} color='green' /> },
+    { value: 'paypal', label: 'Paypal', icon: <FaPaypal size={20} color='blue' /> },
+    { value: 'zelle', label: 'zelle', icon: <SiZelle size={20} color='duck' /> },
+    { value: 'apple', label: 'Apple Pay', icon: <FaApplePay size={20} color='black' /> },
+    { value: 'venmo', label: 'Venmo', icon: <BiLogoVenmo size={20} color='black' /> },
   ];
   const [sendValue, setSendValue] = useState(options[0].value);
   const [recieveValue, setRecieveValue] = useState(options[0].value);
@@ -169,7 +169,7 @@ export const ExchangeForm = (props) => {
                     required
                     type="number"
                     className="form-control"
-                    placeholder="Enter Amount"
+                    placeholder="1000"
                     aria-label="Text input"
                     value={amount}
                     onChange={(e) => { setAmount(e.target.value); setRecieveAmount(e.target.value * 4) }}
@@ -189,8 +189,11 @@ export const ExchangeForm = (props) => {
                               className="custom-dropdown-item"
                               onClick={() => handleOptionClick(option.value)}
                             >
-                              {option.icon}<span>&nbsp;</span>
-                              {option.label}
+                              <div>
+                                {option.icon}<span>&nbsp;</span>
+                                {option.label}
+                              </div>
+                              <span>{option.value}</span>
                             </div>
                           ))}
                         </div>
@@ -247,7 +250,7 @@ export const ExchangeForm = (props) => {
                     type="text"
                     className="form-control"
                     aria-label="Text input"
-                    placeholder='Enter your full name'
+                    placeholder='Danny Dasilva'
                     onChange={(e) => { setFullName(e.target.value) }}
                     value={fullName}
                   />
@@ -263,7 +266,7 @@ export const ExchangeForm = (props) => {
                     type="text"
                     className="form-control"
                     aria-label="Text input"
-                    placeholder='Enter your username'
+                    placeholder='joeexchange0401'
                     onChange={(e) => { setUserName(e.target.value) }}
                     value={userName}
                   />
@@ -279,7 +282,7 @@ export const ExchangeForm = (props) => {
                     type="email"
                     className="form-control"
                     aria-label="Text input"
-                    placeholder='Enter your email'
+                    placeholder='joe@exchange.com'
                     onChange={(e) => { setEmail(e.target.value) }}
                     value={email}
                   />
@@ -295,7 +298,7 @@ export const ExchangeForm = (props) => {
                     type="text"
                     className="form-control"
                     aria-label="Text input"
-                    placeholder='Enter your Number'
+                    placeholder='1234567890'
                     onChange={(e) => { setNumber(e.target.value) }}
                     value={number}
                   />
@@ -333,7 +336,7 @@ export const ExchangeForm = (props) => {
             <div className="modal-overlay">
               <div className={`modal my-modal ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1">
                 <div className="modal-dialog">
-                  <div className="modal-content">
+                  <div className="modal-content custom-modal-content">
                     <div className="modal-body">
                       <p className='transaction-label'>Transaction ID:</p>
                       <p className='transaction-id'>aujt0q3429uapojasglk34ltyn3lnlnga</p>
