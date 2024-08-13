@@ -478,6 +478,7 @@ h3 {
   border: 1px rgb(230, 172, 12) solid;
   border-radius: 5px !important;
   height: 45px;
+  z-index: 100 !important;
 }
 
 .input-group .input-group-append {
