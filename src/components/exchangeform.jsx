@@ -229,7 +229,7 @@ export const ExchangeForm = (props) => {
                             <div
                               key={option.value}
                               className="custom-dropdown-item"
-                              onClick={() => handleOptionClick(option.value)}
+                              onClick={() => handleRecieveOptionClick(option.value)}
                             >
                               <div>
                                 {option.icon}<span>&nbsp;</span>
