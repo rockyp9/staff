@@ -7,6 +7,7 @@ import Terms from './Terms';
 import * as serviceWorker from './serviceWorker';
 import { ClerkProvider } from '@clerk/clerk-react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Await from './Await';
 
 const PUBLISHABLE_KEY = process.env.REACT_APP_VITE_AUTH_KEY
 if (!PUBLISHABLE_KEY) {
@@ -33,6 +34,12 @@ ReactDOM.render(
             path="/exchange"
             element={
               <Exchange />
+            }
+          />
+          <Route
+            path="/await"
+            element={
+              <Await />
             }
           />
 

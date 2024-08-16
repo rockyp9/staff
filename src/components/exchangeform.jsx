@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaBitcoin, FaEthereum, FaPaypal, FaApplePay } from 'react-icons/fa'; // Import icons from react-icons
 import { SiLitecoin, SiCashapp, SiZelle } from "react-icons/si";
 import { SlRefresh } from "react-icons/sl";
 import { BiLogoVenmo } from "react-icons/bi";
 import { Oval } from 'react-loader-spinner';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const ExchangeForm = (props) => {
+export const ExchangeForm = () => {
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/get-transactions`
+    ).then((response) => {
+      setTransactions(response.data)
+    }).catch(function (error) {
+
+      console.log(error)
+    });
+  }, []);
+
+
+  const navigate = useNavigate();
 
   const options = [
     { value: 'btc', label: 'Bitcoin', icon: <FaBitcoin size={20} color='orange' /> },
@@ -52,6 +67,7 @@ export const ExchangeForm = (props) => {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
 
   const handleSend = (e) => {
+
     e.preventDefault();
 
     if (!isTermsChecked) {
@@ -62,6 +78,7 @@ export const ExchangeForm = (props) => {
       setTransactionMessage('Please enter a valid address and amount.');
       return;
     }
+    setLoading(true);
 
     const newTransaction = {
       id: transactions.length + 1,
@@ -71,17 +88,20 @@ export const ExchangeForm = (props) => {
       userName,
       email,
       number,
+      sendValue,
+      recieveValue,
       status: 'pending',
       timestamp: new Date().toLocaleString(),
     };
-    setLoading(true);
 
     axios.post(`${process.env.REACT_APP_API_URL}/create-transaction`, {
       newTransaction
     }).then(() => {
       console.log('success');
-      setLoading(false)
-      setShowModal(true)
+      setLoading(false);
+      // setShowModal(true);
+      navigate('/await', { state: { transaction: newTransaction } });
+
     }).catch(function (error) {
       setLoading(false)
       console.log(error)
@@ -254,7 +274,7 @@ export const ExchangeForm = (props) => {
                     type="text"
                     className="form-control"
                     aria-label="Text input"
-                    placeholder='Danny Dasilva'
+                    placeholder='John Doe'
                     onChange={(e) => { setFullName(e.target.value) }}
                     value={fullName}
                   />
@@ -286,7 +306,7 @@ export const ExchangeForm = (props) => {
                     type="email"
                     className="form-control"
                     aria-label="Text input"
-                    placeholder='joe@exchange.com'
+                    placeholder='joe@gmail.com'
                     onChange={(e) => { setEmail(e.target.value) }}
                     value={email}
                   />
@@ -316,10 +336,16 @@ export const ExchangeForm = (props) => {
                   onChange={handleCheckboxChange}
                 />
                 <label htmlFor="terms">
-                  I agree to the <a href="/terms" target="_blank">Terms of service</a>.
+                  I agree that by using PlusExchanges, I accept the  <a href="/terms" target="_blank">Terms of service</a>.
                 </label>
               </div>
               <div className="col-md-12 form-submit-button">
+                {/* <a
+                  href="/await"
+                  className="btn btn-custom btn-lg page-scroll"
+                >
+                  Exchange Now!
+                </a> */}
                 <button className='btn btn-primary submit-button' type="submit" >Exchange Now
                   {loading ? <Oval
                     height={20}

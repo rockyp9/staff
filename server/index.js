@@ -111,6 +111,7 @@ app.post('/create-transaction', (req, res) => {
                     console.error('Query error:', error);
                     return res.status(500).send('Database query failed');
                 }
+
                 res.send(results);
             });
     });
@@ -132,6 +133,28 @@ app.post('/send-email', (req, res) => {
         }
         console.log('sent', body);
         return res.status(200).send('Email sent successfully.')
+    });
+
+});
+
+
+app.get('/get-transactions', (req, res) => {
+    pool.getConnection((err, connection) => {
+
+        if (err) {
+            console.error('Error getting MySQL connection:', err);
+            return res.status(500).send('Database connection failed');
+        }
+        const query = 'SELECT * FROM transactions'; // Adjust the query to your table structure
+
+        connection.query(query, (err, results) => {
+            if (err) {
+                console.error('Error executing query:', err.stack);
+                return;
+            }
+            console.log('Transactions:', results.length);
+            return res.status(200).send(results)
+        });
     });
 
 });

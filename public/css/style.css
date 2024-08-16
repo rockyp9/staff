@@ -637,6 +637,44 @@ h4 {
   background-color: #f0f0f0;
 }
 
+.awaitform {
+  margin: auto;
+  margin-top: 200px;
+
+  padding: 20px 20px;
+  width: 80%;
+}
+
+.transactionID label {
+  float: left;
+  text-align: right;
+  width: 100%;
+  color: white;
+}
+
+.awaitcontent {
+  background-color: white;
+  padding: 30px 45px;
+  border-radius: 10px;
+}
+
+.awaitcontent label {
+  margin-left: -15px;
+}
+
+.qrsection {
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.qrcode {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  height: 200px;
+}
+
 /* About Section */
 #about {
   padding: 100px 0;
