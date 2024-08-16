@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaBitcoin, FaEthereum, FaPaypal, FaApplePay } from 'react-icons/fa'; // Import icons from react-icons
 import { SiLitecoin, SiCashapp, SiZelle } from "react-icons/si";
+import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { SlRefresh } from "react-icons/sl";
 import { BiLogoVenmo } from "react-icons/bi";
 import { Oval } from 'react-loader-spinner';
@@ -12,30 +13,19 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const ExchangeForm = () => {
 
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/get-transactions`
-    ).then((response) => {
-      setTransactions(response.data)
-    }).catch(function (error) {
-
-      console.log(error)
-    });
-  }, []);
-
-
-  const navigate = useNavigate();
-
   const options = [
-    { value: 'btc', label: 'Bitcoin', icon: <FaBitcoin size={20} color='orange' /> },
-    { value: 'eth', label: 'Ethereum', icon: <FaEthereum size={20} color='blue' /> },
-    { value: 'ltc', label: 'LTC', icon: <SiLitecoin size={20} color='blue' /> },
-    { value: 'cashapp', label: 'Cashapp', icon: <SiCashapp size={20} color='green' /> },
-    { value: 'paypal', label: 'Paypal', icon: <FaPaypal size={20} color='blue' /> },
-    { value: 'zelle', label: 'zelle', icon: <SiZelle size={20} color='purple' /> },
-    { value: 'apple cash', label: 'Apple Pay', icon: <FaApplePay size={20} color='black' /> },
-    { value: 'venmo', label: 'Venmo', icon: <BiLogoVenmo size={20} color='blue' /> },
+    { value: 'btc', label: 'bitcoin', color: 'orange', placeholder: 'Your Bitcoin Address', icon: <FaBitcoin size={20} color='orange' /> },
+    { value: 'eth', label: 'ethereum', color: 'silver', placeholder: 'Your Ethereum Address', icon: <FaEthereum size={20} color='silver' /> },
+    { value: 'ltc', label: 'litecoin', color: 'blue', placeholder: 'Your litecoin Address', icon: <SiLitecoin size={20} color='blue' /> },
+    { value: 'cashapp', label: 'Cashapp', color: 'green', placeholder: 'Your $cashtag', icon: <SiCashapp size={20} color='green' /> },
+    { value: 'paypal', label: 'Paypal', color: 'lightblue', placeholder: 'Your Paypal Username/Email', icon: <FaPaypal size={20} color='lightblue' /> },
+    { value: 'zelle', label: 'zelle', color: 'purple', placeholder: 'Your Zelle Username/Number', icon: <SiZelle size={20} color='purple' /> },
+    { value: 'apple cash', label: 'Apple Pay', color: 'black', placeholder: 'Your Iphone number', icon: <FaApplePay size={20} color='black' /> },
+    { value: 'venmo', label: 'Venmo', color: 'white', placeholder: 'Your Venmo Username', icon: <BiLogoVenmo size={20} color='white' /> },
   ];
   const [sendValue, setSendValue] = useState(options[0].value);
+  const [sendUsdAmount, setSendUsdAmount] = useState('');
+  const [sendLabel, setSendLabel] = useState(options[0].label)
   const [recieveValue, setRecieveValue] = useState(options[0].value);
   const [isSendOpen, setIsSendOpen] = useState(false);
   const [isOpenRecieve, setIsRecieveOpen] = useState(false);
@@ -45,26 +35,61 @@ export const ExchangeForm = () => {
   const [number, setNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [txidSubmitted, setTxidSubmitted] = useState(false);
-
   const [showModal, setShowModal] = useState(false);
-
-  const handleOverlayClick = () => setShowModal(false);
-
-
-  const handleOptionClick = (value) => {
-    setSendValue(value);
-    setIsSendOpen(false);
-  };
-  const handleRecieveOptionClick = (value) => {
-    setRecieveValue(value);
-    setIsRecieveOpen(false);
-  };
   const [amount, setAmount] = useState('');
   const [recieveAmount, setRecieveAmount] = useState('');
   const [transactionMessage, setTransactionMessage] = useState('');
   const [transactions, setTransactions] = useState([]);
   const [txid, setTXID] = useState('');
   const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [rate, setRate] = useState('')
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,btc`)
+      .then(response => response.json())
+      .then(response => {
+        setSendUsdAmount(response['bitcoin'].usd);
+        setRate(response['bitcoin'].btc)
+      })
+      .catch(err => console.error(err));
+    axios.get(`${process.env.REACT_APP_API_URL}/get-transactions`
+    ).then((response) => {
+      setTransactions(response.data)
+    }).catch(function (error) {
+
+      console.log(error)
+    });
+  }, []);
+
+  const handleOptionClick = (option) => {
+    setSendValue(option.value);
+    setSendLabel(option.label)
+    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${option.label}&vs_currencies=usd,${recieveValue}`)
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        setRecieveAmount(amount * response[option.label][recieveValue]);
+        setRate(response[option.label][recieveValue]);
+        setSendUsdAmount(response[option.label].usd);
+
+      })
+      .catch(err => console.error(err));
+    setIsSendOpen(false);
+  };
+
+  const handleRecieveOptionClick = (option) => {
+    setRecieveValue(option.value);
+    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${sendLabel}&vs_currencies=usd,${option.value}`)
+      .then(response => response.json())
+      .then(response => {
+        setRecieveAmount(amount * response[sendLabel][option.value]);
+        setRate(response[sendLabel][sendValue]);
+      })
+      .catch(err => console.error(err));
+    setIsRecieveOpen(false);
+  };
 
   const handleSend = (e) => {
 
@@ -84,10 +109,7 @@ export const ExchangeForm = () => {
       id: transactions.length + 1,
       amount,
       recieveAmount,
-      fullName,
       userName,
-      email,
-      number,
       sendValue,
       recieveValue,
       status: 'pending',
@@ -179,27 +201,31 @@ export const ExchangeForm = () => {
             <ToastContainer />
             <h2>Exchange Today</h2>
             <form onSubmit={handleSend} >
-              <div className='col-md-6'>
+              <div className='col-md-5'>
                 <div className='send-label'>
                   <label htmlFor="recipientAddress">You Send</label>
                   <label htmlFor="recipientAddress">{sendValue}</label>
                 </div>
                 <div className="input-group mb-3" >
                   <input
+                    style={{ borderColor: options.find(option => option.value === sendValue)?.color || '' }}
                     required
                     type="number"
                     className="form-control"
-                    placeholder="1000"
+                    placeholder="50"
                     aria-label="Text input"
                     value={amount}
-                    onChange={(e) => { setAmount(e.target.value); setRecieveAmount(e.target.value * 4) }}
+                    onChange={(e) => { setAmount(e.target.value); setRecieveAmount(e.target.value * rate) }}
                   />
+
                   <div className="input-group-append" >
                     <div className="custom-dropdown-container">
-                      <div className="custom-dropdown" onClick={() => setIsSendOpen(!isSendOpen)}>
+                      <div className="custom-dropdown" onClick={() => {
+                        setIsSendOpen(!isSendOpen);
+                      }}>
                         <span>{options.find(option => option.value === sendValue).icon}</span>
                         <span>&nbsp;</span>
-                        <span>{options.find(option => option.value === sendValue).label}</span>
+                        <span style={{ textTransform: 'capitalize' }}>{options.find(option => option.value === sendValue).label}</span>
                       </div>
                       {isSendOpen && (
                         <div className="custom-dropdown-menu">
@@ -207,7 +233,7 @@ export const ExchangeForm = () => {
                             <div
                               key={option.value}
                               className="custom-dropdown-item"
-                              onClick={() => handleOptionClick(option.value)}
+                              onClick={() => handleOptionClick(option)}
                             >
                               <div>
                                 {option.icon}<span>&nbsp;</span>
@@ -220,28 +246,36 @@ export const ExchangeForm = () => {
                       )}
                     </div>
                   </div>
+                  {amount && <div className="crypto-price">
+                    <p>{amount} {sendValue} = {recieveAmount} {recieveValue} </p>
+                    <p>${sendUsdAmount * amount}</p>
+                  </div>}
                 </div>
               </div>
-              <div className='col-md-6'>
+              <div className="col-md-2 exchangeicon">
+                <FaArrowRightArrowLeft />
+              </div>
+              <div className='col-md-5'>
                 <div className='send-label'>
                   <label htmlFor="recipientAddress">You Recieve</label>
                   <label htmlFor="recipientAddress">{recieveValue}</label>
                 </div>
                 <div className="input-group mb-3" >
                   <input
+                    style={{ borderColor: options.find(option => option.value === recieveValue)?.color || '' }}
                     required
                     type="number"
                     disabled
                     className="form-control"
                     aria-label="Text input"
-                  // value={recieveAmount}
+                    value={recieveAmount}
                   />
                   <div className="input-group-append" >
                     <div className="custom-dropdown-container">
                       <div className="custom-dropdown" onClick={() => setIsRecieveOpen(!isOpenRecieve)}>
                         <span>{options.find(option => option.value === recieveValue).icon}</span>
                         <span>&nbsp;</span>
-                        <span>{options.find(option => option.value === recieveValue).label}</span>
+                        <span style={{ textTransform: 'capitalize' }}>{options.find(option => option.value === recieveValue).label}</span>
                       </div>
                       {isOpenRecieve && (
                         <div className="custom-dropdown-menu">
@@ -249,7 +283,7 @@ export const ExchangeForm = () => {
                             <div
                               key={option.value}
                               className="custom-dropdown-item"
-                              onClick={() => handleRecieveOptionClick(option.value)}
+                              onClick={() => handleRecieveOptionClick(option)}
                             >
                               <div>
                                 {option.icon}<span>&nbsp;</span>
@@ -264,7 +298,7 @@ export const ExchangeForm = () => {
                   </div>
                 </div>
               </div>
-              <div className='col-md-6'>
+              {/* <div className='col-md-6'>
                 <div className='send-label'>
                   <label htmlFor="recipientAddress">Full Name</label>
                 </div>
@@ -327,6 +361,24 @@ export const ExchangeForm = () => {
                     value={number}
                   />
                 </div>
+              </div> */}
+
+              <div className="col-md-12" style={{ margin: '50px 0' }}>
+                <div className='send-label'>
+                  <label htmlFor="recipientAddress">Desired Platform Username/Address</label>
+                </div>
+                <div className="input-group mb-3" >
+                  <input
+                    required
+                    type="text"
+                    className="form-control"
+                    aria-label="Text input"
+                    placeholder={` ${options.find(option => option.value === recieveValue).placeholder}`}
+                    onChange={(e) => { setUserName(e.target.value) }}
+                    value={userName}
+                    style={{ textTransform: 'capitalize' }}
+                  />
+                </div>
               </div>
               <div className="col-md-12 terms-agree">
                 <input
@@ -340,12 +392,7 @@ export const ExchangeForm = () => {
                 </label>
               </div>
               <div className="col-md-12 form-submit-button">
-                {/* <a
-                  href="/await"
-                  className="btn btn-custom btn-lg page-scroll"
-                >
-                  Exchange Now!
-                </a> */}
+
                 <button className='btn btn-primary submit-button' type="submit" >Exchange Now
                   {loading ? <Oval
                     height={20}
@@ -362,7 +409,7 @@ export const ExchangeForm = () => {
                 </button>
               </div>
             </form>
-            {transactionMessage && <p >{transactionMessage}</p>}
+            {/* {transactionMessage && <p >{transactionMessage}</p>}
             <div className="modal-overlay">
               <div className={`modal my-modal ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1">
                 <div className="modal-dialog">
@@ -431,11 +478,11 @@ export const ExchangeForm = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 
 };

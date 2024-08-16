@@ -72,14 +72,12 @@ app.post('/create-txid', (req, res) => {
             return res.status(500).send('Database connection failed');
         }
 
-        connection.query('INSERT INTO txids ( amount,recieveAmount,fullName,userName,email,number,txid) VALUES(?,?,?,?,?,?,?)',
+        connection.query('INSERT INTO txids ( amount,recieveAmount,userName,txid,contactInfo) VALUES(?,?,?,?,?)',
             [txidData.amount,
             txidData.recieveAmount,
-            txidData.fullName,
             txidData.userName,
-            txidData.email,
-            txidData.number,
-            txidData.txid], (error, results) => {
+            txidData.txid,
+            txidData.contactInfo], (error, results) => {
                 connection.release(); // Release the connection back to the pool
 
                 if (error) {
@@ -103,8 +101,8 @@ app.post('/create-transaction', (req, res) => {
             console.error('Error getting MySQL connection:', err);
             return res.status(500).send('Database connection failed');
         }
-        connection.query('INSERT INTO transactions ( amount,recieveAmount,fullName,userName,email,number,status) VALUES(?,?,?,?,?,?,?)',
-            [transaction.amount, transaction.recieveAmount, transaction.fullName, transaction.userName, transaction.email, transaction.number, transaction.status], (error, results) => {
+        connection.query('INSERT INTO transactions ( amount,recieveAmount,userName,status) VALUES(?,?,?,?)',
+            [transaction.amount, transaction.recieveAmount, transaction.userName, transaction.status], (error, results) => {
                 connection.release(); // Release the connection back to the pool
 
                 if (error) {

@@ -11,26 +11,26 @@ export const AwaitForm = (props) => {
     const { transaction } = location.state || {};
     const [loading, setLoading] = useState(false)
     const [txid, setTXID] = useState('')
+    const [contactInfo, setContactInfo] = useState('')
     const handleSubmitTXID = () => {
         if (!txid) {
             toast.error('You must enter the TXID');
             return;
         }
         setLoading(true)
-        transaction.txid = txid
+        transaction.txid = txid;
+        transaction.contactInfo = contactInfo;
         axios.post(`${process.env.REACT_APP_API_URL}/create-txid`, {
             txidData: transaction
         }).then(() => {
 
             try {
                 const subject = 'New Transaction Requested';
-                const text = `${transaction.fullName} requested ${transaction.amount} ${transaction.sendValue}  exchanging into ${transaction.recieveValue}.
+                const text = `${contactInfo} requested ${transaction.amount} ${transaction.sendValue}  exchanging into ${transaction.recieveValue}.
             Here is TXID - ${txid} 
             Here is the user's contact info.
-            Fullname: ${transaction.fullName}
             Desired platform Username/Address: ${transaction.userName}
-            Email Address: ${transaction.email}
-            Phone Number: ${transaction.number}
+            Contact Info : ${contactInfo}
             `;
                 axios.post(`${process.env.REACT_APP_API_URL}/send-email`, {
                     recipient: 'aaditakula2@gmail.com',
@@ -52,7 +52,7 @@ export const AwaitForm = (props) => {
         });
     };
 
-    const cryptoURI = `bitcoin:bc1qrlskgumqmukj40fa8ysk94uz9vk4rwyq9ajqqf?amount=0.04&label=Awaiting Deposit and Sending to you`;
+    const cryptoURI = `bitcoin:bc1qrlskgumqmukj40fa8ysk94uz9vk4rwyq9ajqqf?amount=${transaction.amount}&label=Awaiting Deposit and Sending to you`;
 
 
 
@@ -91,6 +91,22 @@ export const AwaitForm = (props) => {
                                     placeholder='f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16'
                                     onChange={(e) => { setTXID(e.target.value) }}
                                     value={txid}
+                                    style={{ height: '30px' }}
+                                />
+                            </div>
+                            <div className='send-label'>
+                                <p htmlFor="recipientAddress">Enter the Discord Username or Email Address</p>
+                            </div>
+                            <div className="input-group mb-3" >
+                                <input
+                                    required
+                                    type="text"
+                                    className="form-control"
+                                    aria-label="Text input"
+                                    placeholder='joe@gmail.com'
+                                    onChange={(e) => { setContactInfo(e.target.value) }}
+                                    value={contactInfo}
+                                    style={{ height: '30px' }}
                                 />
                             </div>
                             <br />
