@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigation } from "./components/navigation";
 import { AwaitForm } from "./components/awaitform";
-
 import { useUser, RedirectToSignIn } from '@clerk/clerk-react';
 
 

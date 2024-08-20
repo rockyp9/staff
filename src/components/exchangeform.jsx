@@ -84,12 +84,20 @@ export const ExchangeForm = () => {
     fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${sendLabel}&vs_currencies=usd,${option.value}`)
       .then(response => response.json())
       .then(response => {
+
         setRecieveAmount(amount * response[sendLabel][option.value]);
-        setRate(response[sendLabel][sendValue]);
+        setRate(response[sendLabel][option.value]);
       })
       .catch(err => console.error(err));
     setIsRecieveOpen(false);
   };
+
+  const handleChangeSendAmount = (e) => {
+    setAmount(e.target.value);
+    console.log(e.target.value);
+    console.log(rate)
+    setRecieveAmount(((e.target.value) * (rate)).toString())
+  }
 
   const handleSend = (e) => {
 
@@ -215,7 +223,7 @@ export const ExchangeForm = () => {
                     placeholder="50"
                     aria-label="Text input"
                     value={amount}
-                    onChange={(e) => { setAmount(e.target.value); setRecieveAmount(e.target.value * rate) }}
+                    onChange={(e) => { handleChangeSendAmount(e) }}
                   />
 
                   <div className="input-group-append" >
@@ -237,7 +245,9 @@ export const ExchangeForm = () => {
                             >
                               <div>
                                 {option.icon}<span>&nbsp;</span>
-                                {option.label}
+                                <span style={{ textTransform: 'capitalize' }}>
+                                  {option.label}
+                                </span>
                               </div>
                               <span style={{ textTransform: 'uppercase' }}>{option.value}</span>
                             </div>
@@ -287,7 +297,9 @@ export const ExchangeForm = () => {
                             >
                               <div>
                                 {option.icon}<span>&nbsp;</span>
-                                {option.label}
+                                <span style={{ textTransform: 'capitalize' }}>
+                                  {option.label}
+                                </span>
                               </div>
                               <span style={{ textTransform: 'uppercase' }}>{option.value}</span>
                             </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import MovingDots from './movingdots';
 
 export const Header = (props) => {
 
@@ -31,9 +32,12 @@ export const Header = (props) => {
             </div>
             <div className="col-md-6"> */}
             <div className="intro-text">
-              <h2>
-                Exchanging, Made Safer and Quicker.
-              </h2>
+              <div className="title-movingdots">
+                <MovingDots header={true} />
+                <h1>
+                  Exchanging, Made Safer and Quicker.
+                </h1>
+              </div>
               <br></br>
               <br></br>
               <div className="col-md-3 currency-img ">
@@ -71,10 +75,11 @@ export const Header = (props) => {
               <br></br>
               <a
                 href="/exchange"
-                className="btn btn-custom btn-lg page-scroll"
+                className="btn btn-custom btn-lg page-scroll gradient-border-button"
               >
                 Exchange Now!
               </a>
+
             </div>
             {/* </div> */}
 
