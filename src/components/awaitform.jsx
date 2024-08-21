@@ -11,7 +11,9 @@ export const AwaitForm = (props) => {
     const { transaction } = location.state || {};
     const [loading, setLoading] = useState(false)
     const [txid, setTXID] = useState('')
-    const [contactInfo, setContactInfo] = useState('')
+    const [contactInfo, setContactInfo] = useState('');
+    const isCashApp = transaction.sendValue === 'cashapp' ? true : false;
+    console.log(transaction);
     const handleSubmitTXID = () => {
         if (!txid) {
             toast.error('You must enter the TXID');
@@ -61,7 +63,7 @@ export const AwaitForm = (props) => {
             <div className="awaitform">
                 <ToastContainer />
                 <div className="transactionID">
-                    <label htmlFor="">TransactionID : asdlfjlasdjflasjflkasf{transaction.id}</label>
+                    {/* <label htmlFor="">TransactionID : asdlfjlasdjflasjflkasf{transaction.id}</label> */}
                 </div>
                 <br />
                 <div className="awaitcontent">
@@ -76,11 +78,11 @@ export const AwaitForm = (props) => {
                     <div className="qrsection row">
                         <div className="col col-md-6">
                             <p htmlFor="">Amount</p>
-                            <h4>{transaction.amount} {transaction.sendValue}</h4>
+                            <h4>{transaction.amount} {transaction.sendValue} ($ {transaction.usdValue})</h4>
                             <p htmlFor="">To the Address</p>
                             <h6>bc1qrlskgumqmukj40fa8ysk94uz9vk4rwyq9ajqqf</h6>
                             <div className='send-label'>
-                                <p htmlFor="recipientAddress">Enter the TXID</p>
+                                <p htmlFor="recipientAddress">{isCashApp ? ('Enter Your Web Receipt') : ('Enter Your TXID')}</p>
                             </div>
                             <div className="input-group mb-3" >
                                 <input
@@ -95,7 +97,7 @@ export const AwaitForm = (props) => {
                                 />
                             </div>
                             <div className='send-label'>
-                                <p htmlFor="recipientAddress">Enter the Discord Username or Email Address</p>
+                                <p htmlFor="recipientAddress">Enter your  Discord Username or Email Address</p>
                             </div>
                             <div className="input-group mb-3" >
                                 <input
@@ -110,7 +112,7 @@ export const AwaitForm = (props) => {
                                 />
                             </div>
                             <br />
-                            <button className='btn btn-primary submit-button' onClick={handleSubmitTXID} >Submit
+                            <button className='btn btn-primary  gradient-border-button' onClick={handleSubmitTXID} >Submit
                                 {loading ? <Oval
                                     height={20}
                                     width={20}

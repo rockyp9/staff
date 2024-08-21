@@ -3,6 +3,8 @@ import { Navigation } from "./components/navigation";
 import { ExchangeForm } from "./components/exchangeform";
 import Raining from './components/raining';
 import { useUser, RedirectToSignIn } from '@clerk/clerk-react';
+import RotatingImage from './components/rotatingimage';
+import MovingDots from './components/movingdots';
 
 
 const Exchange = (props) => {
@@ -14,7 +16,8 @@ const Exchange = (props) => {
 
     return (
         <div>
-            <Raining />
+            <MovingDots />
+            <RotatingImage />
             <Navigation />
             <ExchangeForm />
         </div>

@@ -7,7 +7,7 @@ import { BiLogoVenmo } from "react-icons/bi";
 import { Oval } from 'react-loader-spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import MovingDots from './movingdots';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,7 +20,7 @@ export const ExchangeForm = () => {
     { value: 'cashapp', label: 'Cashapp', color: 'green', placeholder: 'Your $cashtag', icon: <SiCashapp size={20} color='green' /> },
     { value: 'paypal', label: 'Paypal', color: 'lightblue', placeholder: 'Your Paypal Username/Email', icon: <FaPaypal size={20} color='lightblue' /> },
     { value: 'zelle', label: 'zelle', color: 'purple', placeholder: 'Your Zelle Username/Number', icon: <SiZelle size={20} color='purple' /> },
-    { value: 'apple cash', label: 'Apple Pay', color: 'black', placeholder: 'Your Iphone number', icon: <FaApplePay size={20} color='black' /> },
+    { value: 'apple', label: 'Apple Pay', color: 'black', placeholder: 'Your Iphone number', icon: <FaApplePay size={20} color='black' /> },
     { value: 'venmo', label: 'Venmo', color: 'white', placeholder: 'Your Venmo Username', icon: <BiLogoVenmo size={20} color='white' /> },
   ];
   const [sendValue, setSendValue] = useState(options[0].value);
@@ -42,16 +42,29 @@ export const ExchangeForm = () => {
   const [transactions, setTransactions] = useState([]);
   const [txid, setTXID] = useState('');
   const [isTermsChecked, setIsTermsChecked] = useState(false);
-  const [rate, setRate] = useState('')
+  const [rate, setRate] = useState('');
+  const [currencies, setCurrencies] = useState({})
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,btc`)
+    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin&vs_currencies=usd`)
       .then(response => response.json())
       .then(response => {
-        setSendUsdAmount(response['bitcoin'].usd);
-        setRate(response['bitcoin'].btc)
+        console.log(response);
+        var nowCurrenices = {};
+        nowCurrenices.btc = response['bitcoin']['usd'];
+        nowCurrenices.eth = response['ethereum']['usd'];
+        nowCurrenices.ltc = response['litecoin']['usd'];
+        nowCurrenices.cashapp = 1;
+        nowCurrenices.zelle = 1;
+        nowCurrenices.paypal = 1;
+        nowCurrenices.apple = 1;
+        nowCurrenices.venmo = 1;
+        setCurrencies(nowCurrenices);
+        console.log(nowCurrenices)
+        setSendUsdAmount(nowCurrenices.btc);
+        setRate(1)
       })
       .catch(err => console.error(err));
     axios.get(`${process.env.REACT_APP_API_URL}/get-transactions`
@@ -65,48 +78,35 @@ export const ExchangeForm = () => {
 
   const handleOptionClick = (option) => {
     setSendValue(option.value);
-    setSendLabel(option.label)
-    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${option.label}&vs_currencies=usd,${recieveValue}`)
-      .then(response => response.json())
-      .then(response => {
-        console.log(response);
-        setRecieveAmount(amount * response[option.label][recieveValue]);
-        setRate(response[option.label][recieveValue]);
-        setSendUsdAmount(response[option.label].usd);
-
-      })
-      .catch(err => console.error(err));
+    setSendLabel(option.label);
+    console.log(option.value, recieveValue);
+    console.log(currencies[option.value])
+    setRecieveAmount(amount * currencies[option.value] / currencies[recieveValue]);
+    setRate(currencies[option.value] / currencies[recieveValue]);
+    setSendUsdAmount(currencies[option.value]);
     setIsSendOpen(false);
   };
 
   const handleRecieveOptionClick = (option) => {
     setRecieveValue(option.value);
-    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${sendLabel}&vs_currencies=usd,${option.value}`)
-      .then(response => response.json())
-      .then(response => {
-
-        setRecieveAmount(amount * response[sendLabel][option.value]);
-        setRate(response[sendLabel][option.value]);
-      })
-      .catch(err => console.error(err));
+    setRecieveAmount(amount * currencies[sendValue] / currencies[option.value]);
+    setRate(currencies[sendValue] / currencies[option.value]);
     setIsRecieveOpen(false);
   };
 
   const handleChangeSendAmount = (e) => {
     setAmount(e.target.value);
-    console.log(e.target.value);
-    console.log(rate)
-    setRecieveAmount(((e.target.value) * (rate)).toString())
+    setRecieveAmount((e.target.value) * (rate))
   }
 
   const handleSend = (e) => {
 
     e.preventDefault();
 
-    if (!isTermsChecked) {
-      toast.error('You must agree to the terms of service before exchanging.');
-      return;
-    }
+    // if (!isTermsChecked) {
+    //   toast.error('You must agree to the terms of service before exchanging.');
+    //   return;
+    // }
     if (!amount) {
       setTransactionMessage('Please enter a valid address and amount.');
       return;
@@ -116,6 +116,7 @@ export const ExchangeForm = () => {
     const newTransaction = {
       id: transactions.length + 1,
       amount,
+      usdValue: sendUsdAmount * amount,
       recieveAmount,
       userName,
       sendValue,
@@ -205,9 +206,16 @@ export const ExchangeForm = () => {
     <div id="exchangeform">
       <div className="container">
         <div className="row">
-          <div >
+          <div className='intro-text' >
             <ToastContainer />
-            <h2>Exchange Today</h2>
+            <div className="title-movingdots">
+              <MovingDots header={true} />
+              <h1>Exchange Today</h1>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
             <form onSubmit={handleSend} >
               <div className='col-md-5'>
                 <div className='send-label'>
@@ -393,19 +401,19 @@ export const ExchangeForm = () => {
                 </div>
               </div>
               <div className="col-md-12 terms-agree">
-                <input
+                {/* <input
                   type="checkbox"
                   id="terms"
                   checked={isTermsChecked}
                   onChange={handleCheckboxChange}
-                />
+                /> */}
                 <label htmlFor="terms">
                   I agree that by using PlusExchanges, I accept the  <a href="/terms" target="_blank">Terms of service</a>.
                 </label>
               </div>
               <div className="col-md-12 form-submit-button">
 
-                <button className='btn btn-primary submit-button' type="submit" >Exchange Now
+                <button className='btn btn-primary submit-button gradient-border-button' type="submit" >Exchange Now
                   {loading ? <Oval
                     height={20}
                     width={20}

@@ -42,7 +42,12 @@ h5 {
 }
 
 p {
-  font-size: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.transactionID {
+  margin-bottom: 10px;
 }
 
 p.intro {
@@ -345,7 +350,7 @@ a:focus,
 
 .terms-agree label {
   margin: 0 10px;
-  font-size: 25px;
+  font-size: 18px;
   color: white;
 }
 
@@ -454,7 +459,7 @@ h3 {
   height: 100%;
   /* background: url('../img/14.png');
   background-size: cover; */
-  background-image: url('../img/14.png'), url('../img/14.png');
+  /* background-image: url('../img/14.png'), url('../img/14.png'); */
   background-size: cover, cover;
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
@@ -546,7 +551,7 @@ h3 {
 #exchangeform .submit-button {
   display: flex;
   margin: auto;
-  background-color: #5a7fd7;
+  /* background-color: #5a7fd7; */
   padding: 10px 50px;
   border-radius: 10px;
   font-size: 26px;
@@ -562,7 +567,8 @@ h3 {
 }
 
 #exchangeform .submit-button div {
-  padding-left: 10px;
+  padding-left: 20px;
+  margin-top: 8px;
 }
 
 #exchangeform .col-md-6 {
@@ -625,7 +631,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .my-modal .modal-content .next-steps,
 h4 {
-  color: #b9c8f3;
+  /* color: #b9c8f3; */
   text-align: left;
 }
 
@@ -693,9 +699,9 @@ h4 {
 
 .awaitform {
   margin: auto;
-  margin-top: 200px;
+  margin-top: 150px;
 
-  padding: 20px 20px;
+  padding: 20px 0;
   width: 80%;
 }
 
@@ -726,7 +732,7 @@ h4 {
   justify-content: center;
   display: flex;
   align-items: center;
-  height: 200px;
+  height: 320px;
 }
 
 /* About Section */
@@ -1017,7 +1023,7 @@ h4 {
 }
 
 label {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 400;
   font-family: "Open Sans", sans-serif;
   float: left;
@@ -1073,6 +1079,11 @@ label {
   100% {
     background-position: 0% 0%;
   }
+}
+
+.gradient-border-button div {
+  float: right;
+  margin-left: 10px;
 }
 
 .rotating-image-left-container {

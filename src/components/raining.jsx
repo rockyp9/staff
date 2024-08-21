@@ -18,7 +18,7 @@ const DiagonalRainingCanvas = () => {
                 x: Math.random() * width,
                 y: Math.random() * height,
                 length: Math.random() * 20 + 10,
-                speed: Math.random() * 2 + 1,
+                speed: Math.random() * 2,
                 // Random color from light grey to white
                 color: `hsl(0, 0%, ${Math.random() * 20 + 80}%)`,
             });
@@ -61,7 +61,7 @@ const DiagonalRainingCanvas = () => {
     }, []);
 
     return (
-        <canvas ref={canvasRef} style={{ display: 'block', position: 'fixed' }} />
+        <canvas ref={canvasRef} style={{ display: 'block', position: 'fixed', background: 'black', zIndex: -1 }} />
     );
 };
 
