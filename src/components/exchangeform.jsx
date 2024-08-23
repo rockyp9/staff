@@ -44,6 +44,7 @@ export const ExchangeForm = () => {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [rate, setRate] = useState('');
   const [currencies, setCurrencies] = useState({})
+  const [validAddress, setValidAddress] = useState(false);
 
   const navigate = useNavigate();
 
@@ -129,6 +130,9 @@ export const ExchangeForm = () => {
       newTransaction
     }).then(() => {
       console.log('success');
+    const isValid = await validateAddress(recieveValue, userName);
+    console.log(isValid);
+    if (!isValid) {
       setLoading(false);
       // setShowModal(true);
       navigate('/await', { state: { transaction: newTransaction } });
